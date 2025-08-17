@@ -1,34 +1,61 @@
-# 🏏 IPL Analytics Dashboard - Power BI
+# 🏏 IPL Analytics Dashboard – Power BI
 
-![Power BI Dashboard Screenshot](./"C:\Users\akhand pratap\Pictures\Screenshots\Screenshot 2025-04-20 011049.png") *(Replace with actual screenshot path)*
+A comprehensive Indian Premier League (IPL) analytics dashboard built in Power BI, leveraging DAX for KPIs and interactive visuals.
 
-A comprehensive **Indian Premier League (IPL)** analytics dashboard built with **Power BI**, leveraging DAX for advanced calculations and interactive visualizations.
+---
 
-## 🔍 **Features**
-- **Team Performance**: Win/loss ratios, runs scored/conceded, and season trends.
-- **Player Statistics**: Top scorers, wicket-takers, strike rates, and consistency analysis.
-- **Match Insights**: Toss impact, venue analysis, and head-to-head team comparisons.
-- **Interactive Filters**: Dynamic filters by season, team, player, and match type.
+## 🔍 Features
+- Team Performance: Win/Loss, Net Run Rate, runs scored/conceded, season trends
+- Player Statistics: Top scorers, wicket-takers, strike rates, consistency
+- Match Insights: Toss impact, venue analysis, head-to-head comparisons
+- Interactive Filters: Season, team, player, venue, innings, result type
 
-## ⚙️ **Technical Implementation**
-### **Data Modeling**
-- Star schema with fact tables (matches, deliveries) and dimension tables (teams, players, venues).
-- Established relationships with proper cardinality and cross-filtering.
+---
 
-### **DAX Measures**
-```dax
-// Example: Dynamic win percentage by team
-Win % = 
-DIVIDE(
-    COUNTROWS(FILTER(Matches, Matches[Winner] = SELECTEDVALUE(Teams[Team]))),
-    COUNTROWS(FILTER(Matches, Matches[Team1] = SELECTEDVALUE(Teams[Team]) || Matches[Team2] = SELECTEDVALUE(Teams[Team]))),
-    0
-)
+## 🧱 Data Modeling
+- Star schema  
+  - Fact: `Matches`, `Deliveries`  
+  - Dimensions: `Teams`, `Players`, `Venues`, `Seasons`
+- Proper cardinality and single-direction filters where applicable
+- Surrogate keys for stable relationships
 
-// Player strike rate (runs/balls faced)
-Strike Rate = 
-DIVIDE(
-    SUM(Deliveries[Batsman Runs]),
-    COUNTROWS(FILTER(Deliveries, Deliveries[Batsman] = SELECTEDVALUE(Players[Player]))),
-    0
-) * 100
+---
+
+## 📈 KPIs (examples)
+- Total Runs / Wickets / Matches
+- Win %,
+- Venue Win Bias and Toss Outcome Impact
+
+---
+
+## 🛠️ How to Use
+1. Open `IPL-Dashboard.pbix` in Power BI Desktop.
+2. Click Transform Data to review queries and schema.
+3. Refresh data if you’ve connected to your own CSV/DB source.
+4. Use slicers to explore seasons, teams, and players.
+
+---
+
+## 🖼️ Results (Screenshots)
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/4c854cdd-9a7b-4e48-a42c-b8de8c273805" width="48%" alt="Overview 1"/>
+  <img src="https://github.com/user-attachments/assets/aac98f6e-5219-41a3-9f77-474abae9e1b9" width="48%" alt="Overview 2"/>
+</p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/57497db5-5e1c-41aa-8936-4c50ef749098" width="48%" alt="Player/Team Deep Dive"/>
+  <img src="https://github.com/user-attachments/assets/aa98a2fb-dc9e-4f5a-9dac-86a0849bb817" width="28%" alt="Mobile/Focused View"/>
+</p>
+
+---
+
+## 🚀 Tech Stack
+- **Power BI Desktop**
+- **Power Query (M)** for ETL
+- **DAX** for measures
+- Optional: source CSV/DB (matches, deliveries, teams, players)
+
+---
+
+
